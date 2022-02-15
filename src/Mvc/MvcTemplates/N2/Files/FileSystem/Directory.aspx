@@ -39,7 +39,20 @@
     </span>
 	<div style="clear:both;"></div>
 	<div class="tabPanel" data-flag="Unclosable">
+        <edit:PermissionPanel id="ppPermitted" RequiredPermission="Write" runat="server" meta:resourceKey="ppPermitted">
+			<edit:FileUpload runat="server" />
+		</edit:PermissionPanel>
         <div id="directory-container" class="directory cf">
+            <div class="file">
+                <label>
+                    <span>&#128935;</span>
+                </label>
+                <a title="Create a New Folder", href="<%= GetEditUrl() %>"> 
+                    <b class ="fa fa-folder-o"> 
+                    </b>
+                     "Create a New Folder"
+                    </a>
+            </div>
 		    <asp:Repeater ID="rptDirectories" runat="server">
 			    <ItemTemplate>
 				    <div class="file">
@@ -68,8 +81,5 @@
 		    </asp:Repeater>
 	    </div>
 
-		<edit:PermissionPanel id="ppPermitted" RequiredPermission="Write" runat="server" meta:resourceKey="ppPermitted">
-			<edit:FileUpload runat="server" />
-		</edit:PermissionPanel>
     </div>
 </asp:Content>
