@@ -43,16 +43,12 @@
 			<edit:FileUpload runat="server" />
 		</edit:PermissionPanel>
         <div id="directory-container" class="directory cf">
-            <div class="file">
-                <label>
-                    <span>&#128935;</span>
-                </label>
-                <a title="Create a New Folder", href="<%= GetEditUrl() %>"> 
-                    <b class ="fa fa-folder-o"> 
-                    </b>
-                     "Create a New Folder"
-                    </a>
+            <a href ="<%= GetEditUrl() %>">
+            <div data-i="0" class="file create-new-folder">
+                <span class="file-ic glyphicon glyphicon-folder-plus"></span>
+                <label>Create a New Folder</label>
             </div>
+            </a>
 		    <asp:Repeater ID="rptDirectories" runat="server">
 			    <ItemTemplate>
 				    <div class="file">
@@ -82,4 +78,51 @@
 	    </div>
 
     </div>
+
+<style>
+    .create-new-folder {
+    position:relative;
+}
+.create-new-folder label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: none !important;
+    display: block;
+    margin: 0;
+    font-weight: bold;
+    font-size: 10px;
+    height:25px !important;
+    text-align:center;
+}
+.file .file-ic {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 25px;
+}
+.glyphicon-folder-plus {
+    background: url('/N2/Resources/img/folder_plus.gif') no-repeat center center;
+    height: 30px;
+}
+
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.file.create-new-folder {
+    background: #a1d4fe;
+}
+</style>
 </asp:Content>
