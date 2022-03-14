@@ -573,7 +573,8 @@
                         }
                         e.target.value = "";
                         fileBrowser.lastPath = "";
-                        fileBrowser.loadData(lastPath, null);
+                        fileBrowser.curPath = lastPath;
+                        fileBrowser.fileSystemReload();
                     } else {
 
                         var msg = result.Message;
@@ -818,7 +819,8 @@
                     alert(msg);
                 }
 
-                fileBrowser.loadData(curDir, null);
+                fileBrowser.curPath = curDir;
+                fileBrowser.fileSystemReload();
             });
 
             reqCreate.fail(function () {
@@ -863,17 +865,21 @@
 
             }//end of getData
 
-        }//end of API
+        },//end of API
+
+        fileSystemReload: function (onAlways) {
+            //Do the file system cache refresh then do the reload data.
+            $.post('/filesystemreload.n2.ashx', { action: 'filesystemreload', selected: fileBrowser.curPath }, function () {
+                fileBrowser.loadData(fileBrowser.curPath, null);//reload the page after success refresh
+            }).always(onAlways);
+        }
     };
 
     fileBrowser.init();
 
     return {
         api: fileBrowser.api,
-        loadData: fileBrowser.loadData,
-        getCurPath: function () {
-            return fileBrowser.curPath;
-        },
+        fileSystemReload: fileBrowser.fileSystemReload,
     }
 
 

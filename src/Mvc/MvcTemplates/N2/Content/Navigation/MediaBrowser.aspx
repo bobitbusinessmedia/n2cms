@@ -78,10 +78,7 @@
                                 var $btn = $(this);
                                 $btn.prop("disabled", true);//prevent multiple clicks
                                 $("#btn-reload .glyphicon-repeat").addClass('spinning');//start spinning animation
-                                var curPath = n2MediaBrowser.getCurPath();
-                                $.post('/filesystemreload.n2.ashx', { action: 'filesystemreload', selected: curPath }, function () {
-                                    n2MediaBrowser.loadData(curPath, null);//reload the page after success refresh
-                                }).always(function () {
+                                n2MediaBrowser.fileSystemReload(function () {
                                     //do the following after reload ajax call finish regardless of success or fail.
                                     $("#btn-reload .glyphicon-repeat").removeClass('spinning');//stop spinning animation
                                     $btn.prop("disabled", false);//re-enable reload button
