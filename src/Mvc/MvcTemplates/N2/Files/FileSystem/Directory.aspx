@@ -35,15 +35,16 @@
                     $("#directory-container").addClass('upload-folder');
                 });
                 $("#btn-reload").click(function (e) {
-                    e.preventDefault();
-                    $(this).prop("disabled", true);//prevent multiple clicks
+					e.preventDefault();
+					var $btn = $(this);
+                    $btn.prop("disabled", true);//prevent multiple clicks
                     $("#btn-reload .glyphicon-repeat").addClass('spinning');//start spinning animation
                     $.post('/filesystemreload.n2.ashx', { action: 'filesystemreload', selected: '<%=(Selection.SelectedItem as N2.Edit.FileSystem.Items.Directory)?.LocalUrl%>' }, function () {
                         location.reload();//reload the page after success refresh
-                    }).always(function () {
-                        //do the following after reload ajax call finish regardless of success or fail.
+                    }).fail(function () {
+                        //do the following after reload ajax call fails and does not reload the page.
                         $("#btn-reload .glyphicon-repeat").removeClass('spinning');//stop spinning animation
-                        $(this).prop("disabled", false);//re-enable reload button
+                        $btn.prop("disabled", false);//re-enable reload button
                     });
                 });
 			});
