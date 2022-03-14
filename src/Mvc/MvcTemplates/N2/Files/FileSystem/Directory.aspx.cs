@@ -1,27 +1,23 @@
+using N2.Collections;
+using N2.Configuration;
+using N2.Edit.FileSystem.Items;
+using N2.Edit.Navigation;
+using N2.Edit.Versioning;
+using N2.Edit.Web;
+using N2.Engine;
+using N2.Persistence;
+using N2.Resources;
+using N2.Web;
+using N2.Web.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI.WebControls;
-using N2.Edit.FileSystem.Items;
-using N2.Edit.Web;
-using N2.Resources;
-using N2.Web.Drawing;
-using System.Configuration;
-using System.Web.Configuration;
-using N2.Web;
 using System.Web;
-using N2.Edit.Navigation;
-using N2.Collections;
-
-using N2.Configuration;
-using N2.Edit.Versioning;
-using N2.Persistence;
-using N2.Definitions;
-using N2.Edit;
+using System.Web.UI.WebControls;
 
 namespace N2.Edit.FileSystem
 {
-	public partial class Directory1 : EditPage
+    public partial class Directory1 : EditPage
 	{
 		protected bool IsMultiUpload, IsAllowed;
 		protected string ParentQueryString = "";
@@ -311,5 +307,5 @@ namespace N2.Edit.FileSystem
             return url.AppendQuery("returnUrl", Request["returnUrl"]);
         }
 
-    }
+	}
 }

@@ -54,6 +54,7 @@
         patternInfoFile: "<label>{{i18url}}</label>{{url}}",
         preferredSize: "",
         lastPath: "",
+        curPath: "",
         divBreadcrumb: null,
         history: { breadcrumb: "", list: "" },
         ajaxUrl: "",
@@ -97,6 +98,7 @@
             };
             me.preferredSize = me.list.getAttribute("data-preferredsize");
             me.lastPath = me.list.getAttribute("data-path");
+            me.curPath = me.list.getAttribute("data-path");
             me.selectedUrl = me.list.getAttribute("data-selurl");
 
             if (me.list != null) {
@@ -352,7 +354,7 @@
         loadData: function (newDir, searchText) {
             var me = fileBrowser,
                 ajaxUrl = me.ajaxUrl;
-
+            fileBrowser.curPath = newDir;
             fileBrowser.showCreateDirectory = !Boolean(searchText);
             me.api.getData(ajaxUrl, newDir, searchText, window.selectableExtensions, me.repaintList);
         },
@@ -867,7 +869,11 @@
     fileBrowser.init();
 
     return {
-        api: fileBrowser.api
+        api: fileBrowser.api,
+        loadData: fileBrowser.loadData,
+        getCurPath: function () {
+            return fileBrowser.curPath;
+        },
     }
 
 

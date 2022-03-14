@@ -25,6 +25,11 @@ namespace N2.Edit.FileSystem
                 if(!file.Name.StartsWith("."))
                     yield return GetFile(N2.Web.Url.Combine(parentVirtualPath, file.Name), file);
         }
+        public IEnumerable<FileData> GetFiles(string parentVirtualPath, bool getFromCache)
+        {
+            //cache is not implemented just return method without.
+            return GetFiles(parentVirtualPath);
+        }
 
         public FileData GetFile(string virtualPath)
         {
@@ -56,6 +61,11 @@ namespace N2.Edit.FileSystem
             foreach (var dir in new DirectoryInfo(path).GetDirectories())
                 if (!dir.Name.StartsWith("."))
                     yield return GetDirectory(N2.Web.Url.Combine(parentVirtualPath, dir.Name), dir);
+        }
+        public IEnumerable<DirectoryData> GetDirectories(string parentVirtualPath, bool getFromCache)
+        {
+            //cache is not implemented just return method without.
+            return GetDirectories(parentVirtualPath);
         }
 
         public DirectoryData GetDirectory(string virtualPath)

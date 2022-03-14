@@ -75,6 +75,11 @@ namespace N2.Edit.FileSystem.NH
             return from child in FindChildren(path, Restrictions.IsNotNull("Length"))
                    select child.ToFileData();
         }
+        public IEnumerable<FileData> GetFiles(string parentVirtualPath, bool getFromCache)
+        {
+            //cache is not implemented just return method without.
+            return GetFiles(parentVirtualPath);
+        }
 
         public FileData GetFile(string virtualPath)
         {
@@ -92,6 +97,11 @@ namespace N2.Edit.FileSystem.NH
 
             return from child in FindChildren(path, Restrictions.IsNull("Length"))
                    select child.ToDirectoryData();
+        }
+        public IEnumerable<DirectoryData> GetDirectories(string parentVirtualPath, bool getFromCache)
+        {
+            //cache is not implemented just return method without.
+            return GetDirectories(parentVirtualPath);
         }
 
         public DirectoryData GetDirectory(string virtualPath)
