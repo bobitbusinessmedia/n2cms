@@ -12,7 +12,8 @@ namespace N2.Edit.FileSystem
         /// <summary>Gets files in directory.</summary>
         /// <param name="parentVirtualPath">The path to the directory.</param>
         /// <returns>An enumerations of files in the directory.</returns>
-        IEnumerable<FileData> GetFiles(string parentVirtualPath); 
+        IEnumerable<FileData> GetFiles(string parentVirtualPath);
+        IEnumerable<FileData> GetFiles(string parentVirtualPath, bool getFromCache);
 
         /// <summary>Gets file data.</summary>
         /// <param name="virtualPath">The path to the file.</param>
@@ -23,6 +24,7 @@ namespace N2.Edit.FileSystem
         /// <param name="parentVirtualPath">The path to the directory whose child directories to get.</param>
         /// <returns>An enumeration of directories.</returns>
         IEnumerable<DirectoryData> GetDirectories(string parentVirtualPath);
+        IEnumerable<DirectoryData> GetDirectories(string parentVirtualPath, bool getFromCache);
 
         /// <summary>Gets a directory data.</summary>
         /// <param name="virtualPath">The path of the directory to get.</param>

@@ -16,6 +16,11 @@ namespace N2.Tests.Fakes
         {
             return files.Keys.Where(k => k.StartsWith(parentVirtualPath)).Select(k => files[k]);
         }
+        public IEnumerable<FileData> GetFiles(string parentVirtualPath, bool getFromCache)
+        {
+            //cache is not implemented just return method without.
+            return GetFiles(parentVirtualPath);
+        }
 
         public FileData GetFile(string virtualPath)
         {
@@ -25,6 +30,11 @@ namespace N2.Tests.Fakes
         public IEnumerable<DirectoryData> GetDirectories(string parentVirtualPath)
         {
             return directories.Keys.Where(k => k.StartsWith(parentVirtualPath)).Select(k => directories[k]);
+        }
+        public IEnumerable<DirectoryData> GetDirectories(string parentVirtualPath, bool getFromCache)
+        {
+            //cache is not implemented just return method without.
+            return GetDirectories(parentVirtualPath);
         }
 
         public DirectoryData GetDirectory(string virtualPath)

@@ -663,6 +663,7 @@
     <Compile Include="Files\FileSystem\File.aspx.designer.cs">
       <DependentUpon>File.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Files\FileSystem\FileSystemReload.cs" />
     <Compile Include="Files\FileSystem\FileUpload.ascx.cs">
       <DependentUpon>FileUpload.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
