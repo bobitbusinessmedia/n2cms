@@ -1,4 +1,5 @@
-﻿using N2.Edit;
+﻿using N2.Configuration;
+using N2.Edit;
 using N2.Edit.Versioning;
 using N2.Persistence;
 using N2.Resources;
@@ -118,7 +119,10 @@ namespace N2.Details
 
 				ReturnTabId = container.Closest(c => c is TabPanel)?.ClientID;
 
-				var navigateUrl = string.Format("/N2/Files/FileSystem/Directory.aspx?selected={0}&TargetType={1}&TargetProperty={2}&TargetID={3}&TargetZone={4}&TargetDomain={5}&UseDefaultUploadDirectory={6}&VersionIndex={7}&VersionKey={8}&ReturnTab={9}", defaultUploadDirectoryPath, TargetType, TargetProperty, targetID, targetZoneName, targetDomain, UseDefaultUploadDirectory.ToString(), verIndex, verKey, ReturnTabId);
+                //default to customImagePath defined in configuration if TargetDomain property is not set
+                var tdom = string.IsNullOrWhiteSpace(targetDomain) ? Engine.Resolve<ConfigurationManagerWrapper>().GetContentSection<EditSection>("edit")?.Images?.CustomImagePath : targetDomain;
+
+                var navigateUrl = string.Format("/N2/Files/FileSystem/Directory.aspx?selected={0}&TargetType={1}&TargetProperty={2}&TargetID={3}&TargetZone={4}&TargetDomain={5}&UseDefaultUploadDirectory={6}&VersionIndex={7}&VersionKey={8}&ReturnTab={9}", defaultUploadDirectoryPath, TargetType, TargetProperty, targetID, targetZoneName, tdom, UseDefaultUploadDirectory.ToString(), verIndex, verKey, ReturnTabId);
                 HttpContext.Current.Response.Redirect(navigateUrl);
             };
             container.Controls.Add(btn);

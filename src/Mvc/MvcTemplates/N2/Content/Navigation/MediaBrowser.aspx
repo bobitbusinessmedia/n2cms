@@ -60,6 +60,7 @@
                     </div><!-- /input-group -->
                 </div>
                 <span class="input-group-btn" style="text-align:right;padding:0 10px 0 0;">
+                    <button id="btn-reload" class="btn btn-default" type="button" title="Reload" style="margin-right:25px;"><span class="glyphicon glyphicon-repeat" style="margin-right:5px;"></span> Reload</button>
                     <button id="btn-view-grid" class="btn btn-default" type="button" title="Grid View"><span class="glyphicon glyphicon-th"></span></button>
                     <button id="btn-view-list" class="btn btn-default" type="button" title="List View"><span class="glyphicon glyphicon-list"></span></button>
 		            <script>
@@ -72,8 +73,19 @@
                                 e.preventDefault();
                                 $("#browser-files-list-ul").addClass('media-browser');
                             });
+                            $("#btn-reload").click(function (e) {
+                                e.preventDefault();
+                                var $btn = $(this);
+                                $btn.prop("disabled", true);//prevent multiple clicks
+                                $("#btn-reload .glyphicon-repeat").addClass('spinning');//start spinning animation
+                                n2MediaBrowser.fileSystemReload(function () {
+                                    //do the following after reload ajax call finish regardless of success or fail.
+                                    $("#btn-reload .glyphicon-repeat").removeClass('spinning');//stop spinning animation
+                                    $btn.prop("disabled", false);//re-enable reload button
+                                });
+                            });
                         });
-		            </script>
+                    </script>
                 </span>
             </div>
 
