@@ -11,8 +11,11 @@
 		<link rel="stylesheet" href="<%= ResolveUrl("Resources/Css/all.css")+"?v="+N2.Resources.Register.CssVersion %>" type="text/css" />
 		<link rel="stylesheet" href="<%= ResolveUrl("Resources/Css/default.css")+"?v="+N2.Resources.Register.CssVersion %>" type="text/css" />
 		<!--[if IE 6]>
-	<link rel="stylesheet" href="<%= ResolveUrl("Resources/Css/IE6.css") %>" type="text/css" />
-	<![endif]-->
+			<link rel="stylesheet" href="<%= ResolveUrl("Resources/Css/IE6.css") %>" type="text/css" />
+		<![endif]-->
+		<% if (String.IsNullOrWhiteSpace(N2.Resources.Register.AdminJsFile) == false) { %>
+			<script src="<%= N2.Web.Url.ResolveTokens(N2.Resources.Register.AdminJsFile)%>" type="text/javascript"></script>
+		<% } %>
 	</asp:PlaceHolder>
 	<asp:ContentPlaceHolder ID="Head" runat="server">
 	</asp:ContentPlaceHolder>
