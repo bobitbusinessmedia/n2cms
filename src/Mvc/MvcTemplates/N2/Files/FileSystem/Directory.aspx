@@ -10,8 +10,8 @@
 
 <asp:Content ContentPlaceHolderID="Toolbar" runat="server">
 	<edit:ButtonGroup runat="server" CssClass="btn btn-danger">
-		<asp:LinkButton ID="btnDelete" runat="server" Text="Delete selected" CssClass="command primary-action" OnCommand="OnDeleteCommand" OnClientClick="return confirm('Delete selected files and folders?');" meta:resourceKey="btnDelete" />
-        <asp:LinkButton ID="btnAdd" runat="server" Text="Add selected" CssClass="command primary-action" OnCommand="OnAddCommand" OnClientClick="return confirm('Add selected files?');" meta:resourceKey="btnAdd" Visible="false"/>
+		<asp:LinkButton ID="btnDelete" runat="server" Text="Delete selected" CssClass="command primary-action" OnCommand="OnDeleteCommand" OnClientClick="return confirm('Delete selected item(s)?');" meta:resourceKey="btnDelete" />
+        <asp:LinkButton ID="btnAdd" runat="server" Text="Add selected" CssClass="command primary-action" OnCommand="OnAddCommand" OnClientClick="return confirm('Add selected item(s)?');" meta:resourceKey="btnAdd" Visible="false"/>
 		<asp:HyperLink ID="hlEdit" runat="server" Text="Edit" CssClass="command edit" meta:resourceKey="hlEdit" />
         <asp:HyperLink ID="hlCancel" runat="server" Text="Close" CssClass="btn" meta:resourceKey="hlCancel" Visible="false"/>
 	</edit:ButtonGroup>
@@ -60,7 +60,7 @@
             <a href ="<%= GetEditUrl() %>">
             <div data-i="0" class="file create-new-folder">
                 <span class="file-ic glyphicon glyphicon-folder-plus"></span>
-                <label>Create a New Folder</label>
+                <label>Create a Folder</label>
             </div>
             </a>
 		    <asp:Repeater ID="rptDirectories" runat="server">
