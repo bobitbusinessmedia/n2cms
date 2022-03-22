@@ -25,7 +25,8 @@ namespace N2.Resources
 			AngularStrapJsPath = DefaultAngularStrapJsRoot;
             AdminCMSName = DefaultAdminCMSName;
             AdminCSSFile = DefaultAdminCSSFile;
-            BootstrapCssPath = DefaultBootstrapCssPath;
+			AdminJsFile = "";
+			BootstrapCssPath = DefaultBootstrapCssPath;
 			BootstrapJsPath = DefaultBootstrapJsPath;
 			BootstrapDatePickerJsPath = DefaultBootstrapDatePickerJsPath;
 			BootstrapTimePickerJsPath = DefaultBootstrapTimePickerJsPath;
@@ -137,8 +138,9 @@ namespace N2.Resources
 		public static string AngularStrapJsPath { get; set; }
         public static string AdminCSSFile { get; set; }
         public static string AdminCMSName { get; set; }
+		public static string AdminJsFile { get; set; }
 
-        public static string AngularUiJsPath { get; set; }
+		public static string AngularUiJsPath { get; set; }
 		public static string BootstrapDatePickerCssPath { get; set; }
 		public static string BootstrapDatePickerJsPath { get; set; }
 		public static string BootstrapTimePickerCssPath { get; set; }
