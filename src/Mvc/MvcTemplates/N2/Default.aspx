@@ -59,6 +59,9 @@
 	<link href="<%= N2.Web.Url.ResolveTokens(style)%>" rel="stylesheet" />
 	<% } %>
 	<% } %>
+	<% if (String.IsNullOrWhiteSpace(N2.Resources.Register.AdminJsFile) == false) { %>
+		<script src="<%= N2.Web.Url.ResolveTokens(N2.Resources.Register.AdminJsFile)%>" type="text/javascript"></script>
+	<% } %>
 	</asp:PlaceHolder>
 	<base href="<%= Request.Url.AbsolutePath %>" />
 </head>
