@@ -55,7 +55,7 @@ namespace N2.Configuration
 			set { base["angularStrapJsPath"] = value; }
 		}
 
-        /// <summary>The path to the included angular-strap javascript resource.</summary>
+        /// <summary>The path to the admin css resource.</summary>
 		[ConfigurationProperty("adminCSSFile", DefaultValue = Register.DefaultAdminCSSFile)]
         public string AdminCSSFile
         {
@@ -70,8 +70,16 @@ namespace N2.Configuration
             set { base["adminCMSName"] = value; }
         }
 
-        /// <summary>The path to the included angular-ui javascript resource.</summary>
-        [ConfigurationProperty("angularUiJsPath", DefaultValue = Register.DefaultAngularUiJsPath)]
+		/// <summary>The path to the admin javascript resource.</summary>
+		[ConfigurationProperty("adminJsFile")]
+		public string AdminJsFile
+		{
+			get { return (string)base["adminJsFile"]; }
+			set { base["adminJsFile"] = value; }
+		}
+
+		/// <summary>The path to the included angular-ui javascript resource.</summary>
+		[ConfigurationProperty("angularUiJsPath", DefaultValue = Register.DefaultAngularUiJsPath)]
 		public string AngularUiJsPath
 		{
 			get { return (string)base["angularUiJsPath"]; }
