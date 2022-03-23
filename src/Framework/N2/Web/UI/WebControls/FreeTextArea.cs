@@ -159,7 +159,7 @@ namespace N2.Web.UI.WebControls
 				.AppendQuery("availableModes", "All")
 				.AppendQuery("selectableTypes", "");
 
-			overrides["filebrowserImageBrowseUrl"] = Url.Parse(Page.Engine().ManagementPaths.MediaBrowserUrl) + "&defaultDirectoryPath=" + defaultDirectoryPath;
+            overrides["filebrowserImageBrowseUrl"] = Url.Parse(Page.Engine().ManagementPaths.MediaBrowserUrl.ToUrl().AppendQuery("mc=true")) + "&defaultDirectoryPath=" + defaultDirectoryPath;
             overrides["filebrowserFlashBrowseUrl"] = overrides["filebrowserImageBrowseUrl"];
 
             string language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
