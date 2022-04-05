@@ -7,6 +7,9 @@
 	<title id="title" runat="server"></title>
 	<asp:PlaceHolder runat="server">
 		<asp:ContentPlaceHolder ID="Head" runat="server" />
+		<% if (String.IsNullOrWhiteSpace(N2.Resources.Register.AdminJsFile) == false) { %>
+			<script src="<%= N2.Web.Url.ResolveTokens(N2.Resources.Register.AdminJsFile)%>" type="text/javascript"></script>
+		<% } %>
 	</asp:PlaceHolder>
 </head>
 <body class="framed <%= Page.GetType().BaseType.Name %>">

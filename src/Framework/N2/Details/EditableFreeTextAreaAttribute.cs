@@ -79,6 +79,8 @@ namespace N2.Details
             set { useStylesSet = value; }
         }
 
+        public bool UseDefaultUploadDirectory { get; set; }
+
         protected override void ModifyEditor(TextBox tb)
         {
             // set width and height to control the size of the ckeditor
@@ -97,6 +99,7 @@ namespace N2.Details
             fta.EditorMode = editorMode;
             fta.AdditionalFormats = additionalFormats;
             fta.UseStylesSet = useStylesSet;
+            fta.UseDefaultUploadDirectory = UseDefaultUploadDirectory;
 
             return fta;
         }

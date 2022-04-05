@@ -29,6 +29,11 @@ namespace N2.Edit.FileSystem
             foreach (VirtualFile file in PathProvider.GetDirectory(parentVirtualPath).Files)
                 yield return GetFile(file.VirtualPath);
         }
+        public virtual IEnumerable<FileData> GetFiles(string parentVirtualPath, bool getFromCache)
+        {
+            //cache is not implemented just return method without.
+            return GetFiles(parentVirtualPath);
+        }
 
         /// <summary>Gets file data.</summary>
         /// <param name="virtualPath">The path to the file.</param>
@@ -65,6 +70,11 @@ namespace N2.Edit.FileSystem
 
             foreach (VirtualDirectory dir in PathProvider.GetDirectory(parentVirtualPath).Directories)
                 yield return GetDirectory(dir.VirtualPath);
+        }
+        public virtual IEnumerable<DirectoryData> GetDirectories(string parentVirtualPath, bool getFromCache)
+        {
+            //cache is not implemented just return method without.
+            return GetDirectories(parentVirtualPath);
         }
 
         /// <summary>Gets a directory data.</summary>

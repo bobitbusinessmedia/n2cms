@@ -72,6 +72,8 @@ namespace N2.Web.UI.WebControls
             set { useStylesSet = value; }
         }
 
+        public bool UseDefaultUploadDirectory { get; set; }
+
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
@@ -128,6 +130,23 @@ namespace N2.Web.UI.WebControls
 
         protected virtual string GetOverridesJson()
         {
+            string defaultDirectoryPath = "";
+            if(UseDefaultUploadDirectory)
+            {
+                var selection = new SelectionUtility(this, Context.GetEngine());
+                ContentItem item = selection.SelectedItem;
+                var start = Find.ClosestOf<IStartPage>(item);
+                Type itemType = item.GetContentType();
+                if (start != null)
+                {
+                    var slug = N2.Context.Current.Resolve<Slug>();
+                    defaultDirectoryPath = string.Format("{0}/content/{1}", start.Name, slug.Create(itemType.Name));
+                }
+                else
+                    defaultDirectoryPath = string.Format("/");
+
+            }
+
             IDictionary<string, string> overrides = new Dictionary<string, string>();
             overrides["elements"] = ClientID;
 			if (string.IsNullOrEmpty(contentCssUrl))
@@ -140,7 +159,7 @@ namespace N2.Web.UI.WebControls
 				.AppendQuery("availableModes", "All")
 				.AppendQuery("selectableTypes", "");
 
-			overrides["filebrowserImageBrowseUrl"] = Url.Parse(Page.Engine().ManagementPaths.MediaBrowserUrl);
+            overrides["filebrowserImageBrowseUrl"] = Url.Parse(Page.Engine().ManagementPaths.MediaBrowserUrl.ToUrl().AppendQuery("mc=true")) + "&defaultDirectoryPath=" + defaultDirectoryPath;
             overrides["filebrowserFlashBrowseUrl"] = overrides["filebrowserImageBrowseUrl"];
 
             string language = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;

@@ -50,7 +50,8 @@ body.rightExpanded #content { margin-right:265px; }
 .zonesBox .locked { color:#C66; }
 
 /* Edit details */
-.framed .content fieldset { clear:left; padding:10px; }
+.framed .content fieldset { padding: 10px 20px !important; border: 1px solid silver; border-radius: 5px; margin-bottom: 20px; }
+.framed .content fieldset legend { width: auto; border: 0; margin-bottom: 0; padding-left: 10px; padding-right: 10px; margin-left: -10px;font-size: 16px; font-weight: bold; } 
 .framed table.editDetail td { margin:0; padding:0; }
 
 .framed .titleEditor { width:530px; }

@@ -25,7 +25,8 @@ namespace N2.Resources
 			AngularStrapJsPath = DefaultAngularStrapJsRoot;
             AdminCMSName = DefaultAdminCMSName;
             AdminCSSFile = DefaultAdminCSSFile;
-            BootstrapCssPath = DefaultBootstrapCssPath;
+			AdminJsFile = "";
+			BootstrapCssPath = DefaultBootstrapCssPath;
 			BootstrapJsPath = DefaultBootstrapJsPath;
 			BootstrapDatePickerJsPath = DefaultBootstrapDatePickerJsPath;
 			BootstrapTimePickerJsPath = DefaultBootstrapTimePickerJsPath;
@@ -58,8 +59,8 @@ namespace N2.Resources
 		public const string AngularJsVersion = "1.5.8";
 		public const string CkEditorVersion = "4.5.8";
 		public const string DefaultBootstrapVersion = "2.3.2";
-		public const string ScriptVersion = "202109141021";
-		public const string CssVersion = "202112221710";
+		public const string ScriptVersion = "202203140939";
+		public const string CssVersion = "202203290927";
 
 		public const string DefaultFlagsCssPath = "{ManagementUrl}/Resources/icons/flags.css?v="+CssVersion;
 		public const string DefaultJQueryJsPath = "//code.jquery.com/jquery-" + JQueryVersion + ".min.js";
@@ -137,8 +138,9 @@ namespace N2.Resources
 		public static string AngularStrapJsPath { get; set; }
         public static string AdminCSSFile { get; set; }
         public static string AdminCMSName { get; set; }
+		public static string AdminJsFile { get; set; }
 
-        public static string AngularUiJsPath { get; set; }
+		public static string AngularUiJsPath { get; set; }
 		public static string BootstrapDatePickerCssPath { get; set; }
 		public static string BootstrapDatePickerJsPath { get; set; }
 		public static string BootstrapTimePickerCssPath { get; set; }

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace N2.Edit.FileSystem {
-    
-    
-    public partial class Directory1 {
-        
+namespace N2.Edit.FileSystem
+{
+
+
+    public partial class Directory1
+    {
+
         /// <summary>
         /// btnDelete control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace N2.Edit.FileSystem {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnDelete;
-        
+
         /// <summary>
         /// btnAdd control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace N2.Edit.FileSystem {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnAdd;
-        
+
         /// <summary>
         /// hlEdit control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace N2.Edit.FileSystem {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink hlEdit;
-        
+
         /// <summary>
         /// hlCancel control.
         /// </summary>
@@ -47,25 +49,7 @@ namespace N2.Edit.FileSystem {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink hlCancel;
-        
-        /// <summary>
-        /// rptDirectories control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptDirectories;
-        
-        /// <summary>
-        /// rptFiles control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptFiles;
-        
+
         /// <summary>
         /// ppPermitted control.
         /// </summary>
@@ -74,5 +58,23 @@ namespace N2.Edit.FileSystem {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::N2.Edit.Web.UI.Controls.PermissionPanel ppPermitted;
+
+        /// <summary>
+        /// rptDirectories control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptDirectories;
+
+        /// <summary>
+        /// rptFiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptFiles;
     }
 }
