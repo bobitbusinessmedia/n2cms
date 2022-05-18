@@ -5,6 +5,7 @@ using N2.Persistence;
 using N2.Security;
 using System.Linq;
 using N2.Edit.Versioning;
+using N2.Configuration;
 
 namespace N2.Edit.Workflow
 {
@@ -16,7 +17,8 @@ namespace N2.Edit.Workflow
     {
         IPersister persister;
         ISecurityManager security;
-        
+
+        ConfigurationManagerWrapper config;
         CommandBase<CommandContext> makeVersionOfMaster;
         ReplaceMasterCommand replaceMaster;
         MakeVersionCommand makeVersion;
@@ -31,6 +33,7 @@ namespace N2.Edit.Workflow
         UpdateContentStateCommand draftState;
         UpdateContentStateCommand publishedState;
         UpdateContentStateCommand unpublishedState;
+        UpdateContentStateSchedulePublishCommand schedulePublishState;
         ActiveContentSaveCommand saveActiveContent;
         MoveToPositionCommand moveToPosition;
         EnsureNotPublishedCommand unpublishedDate;
@@ -43,7 +46,9 @@ namespace N2.Edit.Workflow
             this.persister = persister;
 			this.security = security;
 
-			makeVersionOfMaster = On.Master(new MakeVersionCommand(versionMaker));
+            config = new ConfigurationManagerWrapper();
+
+            makeVersionOfMaster = On.Master(new MakeVersionCommand(versionMaker));
             replaceMaster = new ReplaceMasterCommand(versionMaker);
             makeVersion = new MakeVersionCommand(versionMaker);
             useNewVersion = new UseDraftCommand(versionMaker);
@@ -57,6 +62,7 @@ namespace N2.Edit.Workflow
             draftState = new UpdateContentStateCommand(changer, ContentState.Draft);
             publishedState = new UpdateContentStateCommand(changer, ContentState.Published);
             unpublishedState = new UpdateContentStateCommand(changer, ContentState.Unpublished);
+            schedulePublishState = new UpdateContentStateSchedulePublishCommand(changer);
             saveActiveContent = new ActiveContentSaveCommand();
             moveToPosition = new MoveToPositionCommand();
             unpublishedDate = new EnsureNotPublishedCommand();
@@ -72,6 +78,9 @@ namespace N2.Edit.Workflow
         {
             var item = context.Content;
 
+            // items with a future publish date should have a 'waiting' state
+            var updateState = config.Sections.Management.CommandButtons.EnableFutureSchedulingOnPublish ? schedulePublishState : publishedState as CommandBase<CommandContext>;
+
             if (item is IActiveContent)
                 return Compose("Publish", Authorize(Permission.Publish), validate, updateObject, moveToPosition, saveActiveContent, updateReferences);
                 
@@ -79,17 +88,17 @@ namespace N2.Edit.Workflow
             if (!item.VersionOf.HasValue)
             {
                 if(item.ID == 0)
-                    return Compose("Publish", Authorize(Permission.Publish), validate, updateObject, publishedState, moveToPosition, save, updateReferences);
+                    return Compose("Publish", Authorize(Permission.Publish), validate, updateObject, updateState, moveToPosition, save, updateReferences);
 
-                return Compose("Publish", Authorize(Permission.Publish), validate, MakeVersionIfPublished(item), updateObject, publishedState, moveToPosition, ensurePublishedDate, save, updateReferences);
+                return Compose("Publish", Authorize(Permission.Publish), validate, MakeVersionIfPublished(item), updateObject, updateState, moveToPosition, ensurePublishedDate, save, updateReferences);
             }
 
             // has been published before
             if (item.State == ContentState.Unpublished)
-                return Compose("Re-Publish", Authorize(Permission.Publish), validate, replaceMaster, useMaster, publishedState, moveToPosition, ensurePublishedDate, save, updateReferences);
+                return Compose("Re-Publish", Authorize(Permission.Publish), validate, replaceMaster, useMaster, updateState, moveToPosition, ensurePublishedDate, save, updateReferences);
 
             // has never been published before (remove old version)
-            return Compose("Publish", Authorize(Permission.Publish), validate, updateObject, replaceMaster, delete, useMaster, publishedState, moveToPosition, ensurePublishedDate, save, updateReferences);
+            return Compose("Publish", Authorize(Permission.Publish), validate, updateObject, replaceMaster, delete, useMaster, updateState, moveToPosition, ensurePublishedDate, save, updateReferences);
             
             throw new NotSupportedException();
         }
@@ -135,26 +144,31 @@ namespace N2.Edit.Workflow
                 // handles it's own persistence
                 return Compose("Save changes", Authorize(Permission.Write), validate, saveActiveContent);
 
+            var updateDate = unpublishedDate;
+            if (config.Sections.Management.CommandButtons.KeepPublishedDateOnSave)
+                updateDate = null;
+
             if (context.Content.IsPage)
             {
                 if (context.Content.ID != 0 && !context.Content.VersionOf.HasValue)
                 {
-                    // is master version
+                    // previously saved master version
                     if (context.Content.State == ContentState.Published || context.Content.State == ContentState.Unpublished)
-                        // update of a master version
-                        return Compose("Save changes", Authorize(Permission.Write), validate, useNewVersion, updateObject, draftState, unpublishedDate, saveOnPageVersion);
+                        return Compose("Save changes", Authorize(Permission.Write), validate, useNewVersion, updateObject, draftState, updateDate, saveOnPageVersion);
                     else
-                        return Compose("Save changes", Authorize(Permission.Write), validate, updateObject, draftState, unpublishedDate, save);
+                        return Compose("Save changes", Authorize(Permission.Write), validate, updateObject, draftState, updateDate, save);
                 }
                 else if (context.Content.State == ContentState.Published || context.Content.State == ContentState.Unpublished)
-                    return Compose("Save changes", Authorize(Permission.Write), validate, useNewVersion, updateObject, draftState, unpublishedDate, saveOnPageVersion);
+                    // version of another item
+                    return Compose("Save changes", Authorize(Permission.Write), validate, useNewVersion, updateObject, draftState, updateDate, saveOnPageVersion);
                 else
-                    return Compose("Save changes", Authorize(Permission.Write), validate, updateObject, draftState, unpublishedDate, save);
+                    // first save
+                    return Compose("Save changes", Authorize(Permission.Write), validate, updateObject, unpublishedState, updateDate, save);
             }
             else
             {
                 // parts are saved as a version to their page
-                return Compose("Save changes", Authorize(Permission.Write), validate, useNewVersion, updateObject, draftState, unpublishedDate, saveOnPageVersion);
+                return Compose("Save changes", Authorize(Permission.Write), validate, useNewVersion, updateObject, draftState, updateDate, saveOnPageVersion);
             }
         }
 

@@ -95,11 +95,63 @@ namespace N2.Edit
 			bool isWritableByUser = Security.IsAuthorized(User, Selection.SelectedItem, Permission.Write);
 			bool isExisting = ie.CurrentItem.ID != 0;
 
-			btnSavePublish.Visible = isPublicableItem && isPublicableByUser;
-			btnPreview.Visible = isVersionable && isWritableByUser;
-			btnSaveUnpublished.Visible = isVersionable && isWritableByUser;
-			hlFuturePublish.Visible = isVersionable && isPublicableByUser;
-			btnUnpublish.Visible = isVersionable && isPublicableByUser;
+			var config = new ConfigurationManagerWrapper();
+
+			//save and publish
+			btnSavePublish.Visible = config.Sections.Management.CommandButtons.PublishButton.Enabled && isPublicableItem && isPublicableByUser;
+			if (btnSavePublish.Visible)
+            {
+				if (string.IsNullOrWhiteSpace(config.Sections.Management.CommandButtons.PublishButton.Text) == false)
+					btnSavePublish.Text = config.Sections.Management.CommandButtons.PublishButton.Text;
+
+				if (string.IsNullOrWhiteSpace(config.Sections.Management.CommandButtons.PublishButton.ToolTip) == false)
+					btnSavePublish.ToolTip = config.Sections.Management.CommandButtons.PublishButton.ToolTip;
+			}
+
+			//save and preview
+			btnPreview.Visible = config.Sections.Management.CommandButtons.SaveAndPreviewButton.Enabled && isVersionable && isWritableByUser;
+			if (btnPreview.Visible)
+			{
+				if (string.IsNullOrWhiteSpace(config.Sections.Management.CommandButtons.SaveAndPreviewButton.Text) == false)
+					btnPreview.Text = config.Sections.Management.CommandButtons.SaveAndPreviewButton.Text;
+
+				if (string.IsNullOrWhiteSpace(config.Sections.Management.CommandButtons.SaveAndPreviewButton.ToolTip) == false)
+					btnPreview.ToolTip = config.Sections.Management.CommandButtons.SaveAndPreviewButton.ToolTip;
+			}
+
+			//save
+			btnSaveUnpublished.Visible = config.Sections.Management.CommandButtons.SaveButton.Enabled && isVersionable && isWritableByUser;
+			if (btnSaveUnpublished.Visible)
+			{
+				if (string.IsNullOrWhiteSpace(config.Sections.Management.CommandButtons.SaveButton.Text) == false)
+					btnSaveUnpublished.Text = config.Sections.Management.CommandButtons.SaveButton.Text;
+
+				if (string.IsNullOrWhiteSpace(config.Sections.Management.CommandButtons.SaveButton.ToolTip) == false)
+					btnSaveUnpublished.ToolTip = config.Sections.Management.CommandButtons.SaveButton.ToolTip;
+			}
+
+			//save version in future
+			hlFuturePublish.Visible = config.Sections.Management.CommandButtons.SaveVersionInFutureButton.Enabled && isVersionable && isPublicableByUser;
+			if (hlFuturePublish.Visible)
+			{
+				if (string.IsNullOrWhiteSpace(config.Sections.Management.CommandButtons.SaveVersionInFutureButton.Text) == false)
+					hlFuturePublish.Text = config.Sections.Management.CommandButtons.SaveVersionInFutureButton.Text;
+
+				if (string.IsNullOrWhiteSpace(config.Sections.Management.CommandButtons.SaveVersionInFutureButton.ToolTip) == false)
+					hlFuturePublish.ToolTip = config.Sections.Management.CommandButtons.SaveVersionInFutureButton.ToolTip;
+			}
+
+			//unpublish
+			btnUnpublish.Visible = config.Sections.Management.CommandButtons.UnpublishButton.Enabled && isVersionable && isPublicableByUser;
+			if (btnUnpublish.Visible)
+			{
+				if (string.IsNullOrWhiteSpace(config.Sections.Management.CommandButtons.UnpublishButton.Text) == false)
+					btnUnpublish.Text = config.Sections.Management.CommandButtons.UnpublishButton.Text;
+
+				if (string.IsNullOrWhiteSpace(config.Sections.Management.CommandButtons.UnpublishButton.ToolTip) == false)
+					btnUnpublish.ToolTip = config.Sections.Management.CommandButtons.UnpublishButton.ToolTip;
+			}
+
 		}
 
 		protected override void OnLoad(EventArgs e)
@@ -135,8 +187,8 @@ namespace N2.Edit
 			var ctx = ie.CreateCommandContext();
 
             try
-            {
-                Commands.Publish(ctx);
+			{
+				Commands.Publish(ctx);
 
                 Engine.AddActivity(new ManagementActivity { Operation = "Publish", PerformedBy = User.Identity.Name, Path = ie.CurrentItem.Path, ID = ie.CurrentItem.ID });
 
@@ -162,8 +214,8 @@ namespace N2.Edit
 			var ctx = ie.CreateCommandContext();
 
             try
-            {
-                if (ctx.Content.VersionOf.HasValue)
+			{
+				if (ctx.Content.VersionOf.HasValue)
                 {
                     var draftOfTopEditor = ctx.Content.FindPartVersion(CurrentItem);
                     ie.UpdateObject(new CommandContext(ie.Definition, draftOfTopEditor, Interfaces.Editing, Context.User));
@@ -186,16 +238,7 @@ namespace N2.Edit
                     previewUrl = previewUrl.SetQueryParameter(PathData.VersionIndexQueryKey, item.VersionIndex);
                 }
 
-                //Items that have no versions (first version) and are drafts, will be updated to unpublished state
-                //  in order for Save and Preview to be able to work cross sites
-                if (!ctx.Content.VersionOf.HasValue && ctx.Content.VersionIndex == 0)
-                {
-                    var item = ie.CurrentItem;
-                    item.State = ContentState.Unpublished;
-                    Engine.Persister.Save(item);
-                }
-
-                previewUrl = previewUrl.SetQueryParameter("Preview", "true");
+				previewUrl = previewUrl.SetQueryParameter("Preview", "true");
 
                 Engine.AddActivity(new ManagementActivity { Operation = "Preview", PerformedBy = User.Identity.Name, Path = ie.CurrentItem.Path, ID = ie.CurrentItem.ID });
 
@@ -211,8 +254,8 @@ namespace N2.Edit
         {
             var ctx = ie.CreateCommandContext();
             try
-            {
-                if (ctx.Content.VersionOf.HasValue)
+			{
+				if (ctx.Content.VersionOf.HasValue)
                 {
                     var draftOfTopEditor = ctx.Content.FindPartVersion(CurrentItem);
                     ie.UpdateObject(new CommandContext(ie.Definition, draftOfTopEditor, Interfaces.Editing, Context.User));
@@ -222,15 +265,6 @@ namespace N2.Edit
                 else
                 {
                     Commands.Save(ctx);
-                }
-
-                //Items that have no versions (first version) and are drafts, will be updated to unpublished state
-                //  so that when saving and viewing the item, it will work cross sites
-                if (!ctx.Content.VersionOf.HasValue && ctx.Content.VersionIndex == 0)
-                {
-                    var item = ie.CurrentItem;
-                    item.State = ContentState.Unpublished;
-                    Engine.Persister.Save(item);
                 }
 
 				Url redirectTo = ManagementPaths.GetEditExistingItemUrl(ctx.Content);

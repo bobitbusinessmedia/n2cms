@@ -186,5 +186,14 @@ namespace N2.Configuration
             get { return (AutosaveElement)base["autosave"]; }
             set { base["autosave"] = value; }
         }
+
+        /// <summary>Configuration about edit page command buttons.</summary>
+        [ConfigurationProperty("commandButtons")]
+        public CommandButtonGroupElement CommandButtons
+        {
+            get { return (CommandButtonGroupElement)base["commandButtons"]; }
+            set { base["commandButtons"] = value; }
+        }
+
     }
 }
