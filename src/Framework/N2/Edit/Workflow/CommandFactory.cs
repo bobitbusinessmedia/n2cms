@@ -156,7 +156,7 @@ namespace N2.Edit.Workflow
                     if (context.Content.State == ContentState.Published || context.Content.State == ContentState.Unpublished)
                         return Compose("Save changes", Authorize(Permission.Write), validate, useNewVersion, updateObject, draftState, updateDate, saveOnPageVersion);
                     else
-                        return Compose("Save changes", Authorize(Permission.Write), validate, updateObject, draftState, updateDate, save);
+                        return Compose("Save changes", Authorize(Permission.Write), validate, updateObject, unpublishedState, updateDate, save);
                 }
                 else if (context.Content.State == ContentState.Published || context.Content.State == ContentState.Unpublished)
                     // version of another item
