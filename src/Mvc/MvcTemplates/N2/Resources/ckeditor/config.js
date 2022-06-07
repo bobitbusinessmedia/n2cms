@@ -49,6 +49,41 @@ CKEDITOR.on('instanceReady', function (ev) {
 
 });
 
+CKEDITOR.on('dialogDefinition', function (ev) {
+
+    try {
+
+        var dialogName = ev.data.name;
+        var dialogDefinition = ev.data.definition;
+
+        if (dialogName == 'link') {
+
+            var informationTab = dialogDefinition.getContents('target');
+
+            var targetField = informationTab.get('linkTargetType');
+
+            targetField['default'] = '_blank';
+
+        }
+
+    } catch (exception) {
+
+        alert('Error ' + ev.message);
+
+    }
+
+});
+
+CKEDITOR.on('instanceReady', function (ev) {
+    var editor = ev.editor,
+        dataProcessor = editor.dataProcessor,
+        htmlFilter = dataProcessor && dataProcessor.htmlFilter;
+    htmlFilter.addRules({
+        a: function (element) {
+            element.attributes['target'] = "_blank";
+        }
+    });
+});
 
 // Define one or multiple Stylesets
 // You can globaly set the used Styleset in web.config
