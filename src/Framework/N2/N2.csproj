@@ -152,9 +152,11 @@
     <Compile Include="Configuration\CkEditorElement.cs" />
     <Compile Include="Configuration\ClientElement.cs" />
     <Compile Include="Configuration\CollaborationElement.cs" />
+    <Compile Include="Configuration\CommandButtonElement.cs" />
     <Compile Include="Configuration\FileListElement.cs" />
     <Compile Include="Configuration\DocViewerElement.cs" />
     <Compile Include="Configuration\HtmlSanitizeElement.cs" />
+    <Compile Include="Configuration\CommandButtonGroupElement.cs" />
     <Compile Include="Configuration\OrganizeElement.cs" />
     <Compile Include="Configuration\OutputCacheInvalidationMode.cs" />
     <Compile Include="Configuration\RavenElement.cs" />
@@ -195,6 +197,7 @@
     <Compile Include="Edit\Collaboration\TraceReaderMessageProvider.cs" />
     <Compile Include="Edit\Versioning\InvalidVersionInfo.cs" />
     <Compile Include="Edit\Versioning\VersionInfo.cs" />
+    <Compile Include="Edit\Workflow\Commands\UpdateContentStateSchedulePublishCommand.cs" />
     <Compile Include="Engine\Accessor.cs" />
     <Compile Include="Engine\Globalization\ContentTranslator.cs" />
     <Compile Include="Engine\Globalization\ITranslator.cs" />
