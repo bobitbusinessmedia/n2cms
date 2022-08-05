@@ -14,6 +14,7 @@ using N2.Engine;
 using N2.Web;
 using Directory = Lucene.Net.Store.Directory;
 using Version = Lucene.Net.Util.Version;
+using Lucene.Net.Support;
 
 namespace N2.Persistence.Search
 {
@@ -83,7 +84,8 @@ namespace N2.Persistence.Search
                     { "Roles", new WhitespaceAnalyzer() },
                     { "State", new WhitespaceAnalyzer() },
                     { "IsPage", new WhitespaceAnalyzer() },
-                    { "Language", new SimpleAnalyzer() }
+                    { "Language", new SimpleAnalyzer() },
+                    { "Detail.Tags" , new TagAnalyzer() }
                 });
         }
 
@@ -157,5 +159,36 @@ namespace N2.Persistence.Search
 			var d = GetDirectory();
             d.ClearLock("write.lock"); ;
         }
+    }
+}
+
+
+
+//Custom analyzer for tags
+public class TagAnalyzer : Analyzer
+{
+    public override TokenStream TokenStream(string fieldName, TextReader reader)
+    {
+        TokenStream result = new TagTokenizer(reader);
+        //result = new TagTokenizerTokenFilter(result);
+        //result = new StopFilter(false, result, StopAnalyzer.ENGLISH_STOP_WORDS_SET, true);
+        return result;
+    }
+}
+
+public class TagTokenizer : CharTokenizer
+{
+    public TagTokenizer(System.IO.TextReader input) : base(input)
+    {
+    }
+
+    protected override char Normalize(char c)
+    {
+        return char.ToLower(c);
+    }
+
+    protected override bool IsTokenChar(char c)
+    {
+        return char.IsLetterOrDigit(c) || c == ' ' || c == '&';
     }
 }

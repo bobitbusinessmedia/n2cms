@@ -16,6 +16,7 @@ namespace N2.Persistence.Search
         public IndexableAttribute()
         {
             IsIndexable = true;
+            Analyzed = true;
         }
 
         public string Name { get; set; }
@@ -23,6 +24,7 @@ namespace N2.Persistence.Search
         #region IIndexableProperty Members
 
         public bool IsIndexable { get; set; }
+        public bool Analyzed { get; set; }
 
         public string GetIndexableText(ContentItem item)
         {

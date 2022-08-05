@@ -58,6 +58,7 @@ namespace N2.Details
             : base(title, sortOrder)
         {
             IsIndexable = true;
+            Analyzed = true;
 			ClientAdapter = "n2autosave.input";
 		}
 
@@ -185,6 +186,7 @@ namespace N2.Details
         #region IIndexableProperty Members
 
         public bool IsIndexable { get; set; }
+        public bool Analyzed { get; set; }
 
         public virtual string GetIndexableText(ContentItem item)
         {
