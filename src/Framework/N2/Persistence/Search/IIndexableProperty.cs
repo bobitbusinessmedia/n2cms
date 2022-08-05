@@ -9,6 +9,8 @@ namespace N2.Persistence.Search
     {
         bool IsIndexable { get; }
 
+        bool Analyzed { get; }
+
         string Name { get; }
 
         string GetIndexableText(ContentItem item);

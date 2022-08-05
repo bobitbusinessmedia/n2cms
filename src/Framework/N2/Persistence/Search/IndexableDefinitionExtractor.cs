@@ -27,7 +27,7 @@ namespace N2.Persistence.Search
             foreach (var indexable in definitions.GetDefinition(item).NamedOperators.OfType<IIndexableProperty>())
             {
                 if (indexable.IsIndexable)
-                    yield return new IndexableField { Name = indexable.Name, Value = indexable.GetIndexableText(item), Analyzed = true, Stored = false };
+                    yield return new IndexableField { Name = indexable.Name, Value = indexable.GetIndexableText(item), Analyzed = indexable.Analyzed, Stored = false };
             }
         }
 
