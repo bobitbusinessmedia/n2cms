@@ -11,16 +11,16 @@ namespace N2.Persistence.Sources
     [ContentSource]
     public class VersionSource : SourceBase<IActiveContent>
     {
-        private ContentVersionRepository repository;
+        private IContentVersionRepository repository;
 
         public VersionSource(IEngine engine)
         {
             this.Engine = engine;
         }
 
-        public ContentVersionRepository Repository
+        public IContentVersionRepository Repository
         {
-            get { return repository ?? (repository = Engine.Resolve<ContentVersionRepository>()); }
+            get { return repository ?? (repository = Engine.Resolve<IContentVersionRepository>()); }
             set { repository = value; }
         }
 

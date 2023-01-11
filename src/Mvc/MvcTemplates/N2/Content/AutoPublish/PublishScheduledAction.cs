@@ -18,13 +18,13 @@ namespace N2.Edit.AutoPublish
     public class PublishScheduledAction : ScheduledAction
     {
         private readonly Engine.Logger<PublishScheduledAction> logger;
-        private ContentVersionRepository versionRepository;
+        private IContentVersionRepository versionRepository;
         private IVersionManager versioner;
         private IPersister persister;
         private ISecurityManager security;
         private StateChanger changer;
         
-        public PublishScheduledAction(ContentVersionRepository versionRepository, IVersionManager versioner, IPersister persister, ISecurityManager security, StateChanger changer)
+        public PublishScheduledAction(IContentVersionRepository versionRepository, IVersionManager versioner, IPersister persister, ISecurityManager security, StateChanger changer)
         {
             this.versionRepository = versionRepository;
             this.versioner = versioner;

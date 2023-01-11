@@ -34,7 +34,7 @@ namespace N2.Management.Myself
             PageFilter.FilterPages(items);
             lblPages.Text = items.Count.ToString();
 
-            long totalCount = itemsCount + Engine.Resolve<ContentVersionRepository>().Repository.Count();
+            long totalCount = itemsCount + Engine.Resolve<IContentVersionRepository>().Repository.Count();
                 //Find.Items.All.PreviousVersions(N2.Persistence.Finder.VersionOption.Include).Select().Count;
             lblVersionsRatio.Text = string.Format("{0:F2}", (double)totalCount / (double)itemsCount);
 

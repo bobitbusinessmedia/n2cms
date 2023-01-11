@@ -220,7 +220,7 @@ namespace N2.Web
             return nvc;
         }
 
-        public static ContentItem ParseVersion(this ContentVersionRepository versionRepository, string versionIndexParameterValue, string versionKey, ContentItem masterVersion)
+        public static ContentItem ParseVersion(this IContentVersionRepository versionRepository, string versionIndexParameterValue, string versionKey, ContentItem masterVersion)
         {
             var path = new PathData(Find.ClosestPage(masterVersion), masterVersion);
             if (TryParseVersion(versionRepository, versionIndexParameterValue, versionKey, path))
@@ -230,7 +230,7 @@ namespace N2.Web
             return null;
         }
 
-        public static bool TryParseVersion(this ContentVersionRepository versionRepository, string versionIndexParameterValue, string versionKey, PathData path)
+        public static bool TryParseVersion(this IContentVersionRepository versionRepository, string versionIndexParameterValue, string versionKey, PathData path)
         {
             if (!path.IsEmpty() && !string.IsNullOrEmpty(versionIndexParameterValue))
             {
@@ -241,7 +241,7 @@ namespace N2.Web
             return false;
         }
 
-        public static bool TryApplyVersion(this PathData path, ContentVersion version, string versionKey, ContentVersionRepository repository)
+        public static bool TryApplyVersion(this PathData path, ContentVersion version, string versionKey, IContentVersionRepository repository)
         {
             if (version != null)
             {

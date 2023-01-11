@@ -192,7 +192,7 @@ namespace N2.Management.Tests.Trash
 
             persister.Dispose();
             item2 = persister.Get<ThrowableItem>(item2.ID);
-			var repository = engine.Resolve<ContentVersionRepository>();
+			var repository = engine.Resolve<IContentVersionRepository>();
 			version = repository.DeserializeVersion(repository.GetVersion(item2, version.VersionIndex)); 
             // persister.Get<ThrowableItem>(version.ID);
             

@@ -150,18 +150,18 @@ namespace N2.Web.Parts
             }
         }
 
-		public static PathData EnsureDraft(IVersionManager versions, ContentVersionRepository versionRepository, Edit.Navigator navigator, NameValueCollection request)
+		public static PathData EnsureDraft(IVersionManager versions, IContentVersionRepository versionRepository, Edit.Navigator navigator, NameValueCollection request)
 		{
 			return EnsureDraft(versions, versionRepository, navigator, key => request[key]);
 		}
 
-		public static PathData EnsureDraft(IVersionManager versions, ContentVersionRepository versionRepository, Edit.Navigator navigator, Func<string, string> requestValueAccessor)
+		public static PathData EnsureDraft(IVersionManager versions, IContentVersionRepository versionRepository, Edit.Navigator navigator, Func<string, string> requestValueAccessor)
 		{
 			var item = navigator.Navigate(requestValueAccessor(PathData.ItemQueryKey));
             return EnsureDraft(versions, versionRepository, requestValueAccessor(PathData.VersionIndexQueryKey), requestValueAccessor(PathData.VersionKeyQueryKey), item);
 		}
 
-		public static PathData EnsureDraft(IVersionManager versions, ContentVersionRepository versionRepository, string versionIndex, string versionKey, ContentItem item)
+		public static PathData EnsureDraft(IVersionManager versions, IContentVersionRepository versionRepository, string versionIndex, string versionKey, ContentItem item)
 		{
 			item = versionRepository.ParseVersion(versionIndex, versionKey, item)
 				?? item;

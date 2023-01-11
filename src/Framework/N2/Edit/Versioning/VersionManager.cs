@@ -21,12 +21,12 @@ namespace N2.Edit.Versioning
     [Service(typeof(IVersionManager))]
     public class VersionManager : IVersionManager
     {
-        public ContentVersionRepository Repository { get; private set; }
+        public IContentVersionRepository Repository { get; private set; }
         readonly IContentItemRepository itemRepository;
         readonly StateChanger stateChanger;
         int maximumVersionsPerItem = 100;
 
-        public VersionManager(ContentVersionRepository versionRepository, IContentItemRepository itemRepository, StateChanger stateChanger, EditSection config)
+        public VersionManager(IContentVersionRepository versionRepository, IContentItemRepository itemRepository, StateChanger stateChanger, EditSection config)
         {
             this.Repository = versionRepository;
             this.itemRepository = itemRepository;
