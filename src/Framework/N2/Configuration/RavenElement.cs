@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace N2.Configuration
 {
-	public class RavenElement : ConfigurationElement
+    public class RavenElement : ConfigurationElement
 	{
 		/// <summary>Runs the database in-memory and delete all content after reboot.</summary>
 		[ConfigurationProperty("runInMemory", DefaultValue = false)]
@@ -23,5 +19,14 @@ namespace N2.Configuration
 			get { return (bool)base["embeddedDocumentStore"]; }
 			set { base["embeddedDocumentStore"] = value; }
 		}
+
+		/// <summary>The connection string to pick among the connection strings in the connectionStrings section.</summary>
+		[ConfigurationProperty("connectionStringName", DefaultValue = "N2CMS.RavenDB")]
+		public string ConnectionStringName
+		{
+			get { return (string)base["connectionStringName"]; }
+			set { base["connectionStringName"] = value; }
+		}
+
 	}
 }
