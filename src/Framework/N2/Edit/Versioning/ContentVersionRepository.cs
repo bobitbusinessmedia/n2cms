@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace N2.Edit.Versioning
 {
-    [Service]
+    [Service(typeof(IContentVersionRepository))]
     public class ContentVersionRepository : IContentVersionRepository
     {
         public IRepository<ContentVersion> Repository { get; private set; }
