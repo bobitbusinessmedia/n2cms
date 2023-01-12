@@ -12,10 +12,10 @@ namespace N2.Management.Installation
     [Service]
     public class UpgradeVersionWorker
     {
-        private ContentVersionRepository versionRepository;
+        private IContentVersionRepository versionRepository;
         private IContentItemRepository itemRepository;
 
-        public UpgradeVersionWorker(ContentVersionRepository versionRepository, IContentItemRepository itemRepository)
+        public UpgradeVersionWorker(IContentVersionRepository versionRepository, IContentItemRepository itemRepository)
         {
             this.versionRepository = versionRepository;
             this.itemRepository = itemRepository;

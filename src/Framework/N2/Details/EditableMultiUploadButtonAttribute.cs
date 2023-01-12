@@ -94,7 +94,7 @@ namespace N2.Details
                 
                 if (path.CurrentPage.VersionOf.HasValue)
                 { 
-					var cvr = Engine.Resolve<ContentVersionRepository>();
+					var cvr = Engine.Resolve<IContentVersionRepository>();
 					cvr.Save(path.CurrentPage);
                 }
                 else
@@ -154,7 +154,7 @@ namespace N2.Details
 			if (page.ID == 0 || (!page.VersionOf.HasValue && (page.State == ContentState.New || page.State == ContentState.Draft)))
                 return new PathData(page, item);
 
-            var cvr = Engine.Resolve<ContentVersionRepository>();
+            var cvr = Engine.Resolve<IContentVersionRepository>();
             var vm = Engine.Resolve<IVersionManager>();
             var path = PartsExtensions.EnsureDraft(vm, cvr, "", item.GetVersionKey(), item);
 

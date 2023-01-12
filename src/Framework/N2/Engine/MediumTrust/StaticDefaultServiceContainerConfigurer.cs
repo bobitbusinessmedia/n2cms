@@ -51,6 +51,7 @@ namespace N2.Engine.Configuration
             engine.Container.AddComponent("n2.repository.nh", typeof(INHRepository<>), typeof(NHRepository<>));
 #pragma warning restore 612, 618
             engine.Container.AddComponent("n2.versioning", typeof(IVersionManager), typeof(VersionManager));
+            engine.Container.AddComponent("n2.versioningRepository", typeof(IContentVersionRepository), typeof(ContentVersionRepository));
             engine.Container.AddComponent("n2.persister", typeof(IPersister), typeof(ContentPersister));
             engine.Container.AddComponent("n2.itemFinder", typeof(IItemFinder), typeof(ItemFinder));
             //trail tracker

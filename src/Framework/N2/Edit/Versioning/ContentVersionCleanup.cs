@@ -13,9 +13,9 @@ namespace N2.Edit.Versioning
     public class ContentVersionCleanup : IAutoStart
     {
         private IItemNotifier notifier;
-        private ContentVersionRepository repository;
+        private IContentVersionRepository repository;
 
-        public ContentVersionCleanup(IItemNotifier notifier, ContentVersionRepository repository)
+        public ContentVersionCleanup(IItemNotifier notifier, IContentVersionRepository repository)
         {
             this.notifier = notifier;
             this.repository = repository;

@@ -20,10 +20,10 @@ namespace N2.Edit.Versioning
     [Service]
     public class DraftRepository : IAutoStart
     {
-        public ContentVersionRepository Versions { get; private set; }
+        public IContentVersionRepository Versions { get; private set; }
         private CacheWrapper cache;
 
-        public DraftRepository(ContentVersionRepository repository, CacheWrapper cache)
+        public DraftRepository(IContentVersionRepository repository, CacheWrapper cache)
         {
             this.Versions = repository;
             this.cache = cache;

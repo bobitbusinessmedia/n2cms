@@ -195,6 +195,7 @@
     <Compile Include="Edit\Collaboration\MessageSourceBase.cs" />
     <Compile Include="Edit\Collaboration\SourceInfo.cs" />
     <Compile Include="Edit\Collaboration\TraceReaderMessageProvider.cs" />
+    <Compile Include="Edit\Versioning\IContentVersionRepository.cs" />
     <Compile Include="Edit\Versioning\InvalidVersionInfo.cs" />
     <Compile Include="Edit\Versioning\VersionInfo.cs" />
     <Compile Include="Edit\Workflow\Commands\UpdateContentStateSchedulePublishCommand.cs" />

@@ -216,7 +216,7 @@ namespace N2.Management.Api
 			var persister = engine.Persister;
 			var integrity = engine.IntegrityManager;
 			var versions = engine.Resolve<IVersionManager>();
-			var versionRepository = engine.Resolve<ContentVersionRepository>();
+			var versionRepository = engine.Resolve<IContentVersionRepository>();
 
 			string versionIndex = selection.RequestValueAccessor(PathData.VersionIndexQueryKey);
 			string versionKey = selection.RequestValueAccessor(PathData.VersionKeyQueryKey);

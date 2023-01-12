@@ -1,19 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using N2.Engine;
+using N2.Persistence;
+using N2.Persistence.Proxying;
 using N2.Persistence.Serialization;
 using N2.Web;
-using N2.Persistence;
-using System.Security.Principal;
-using N2.Persistence.Proxying;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace N2.Edit.Versioning
 {
-    [Service]
-    public class ContentVersionRepository
+    [Service(typeof(IContentVersionRepository))]
+    public class ContentVersionRepository : IContentVersionRepository
     {
         public IRepository<ContentVersion> Repository { get; private set; }
         public event EventHandler<VersionsChangedEventArgs> VersionsChanged;

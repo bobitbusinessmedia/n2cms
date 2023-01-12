@@ -58,7 +58,7 @@ namespace N2.Edit
 		protected CommandDispatcher Commands;
 		protected IEditManager EditManager;
 		protected IEditUrlManager ManagementPaths;
-		protected ContentVersionRepository Repository;
+		protected IContentVersionRepository Repository;
 
 		protected override void OnPreInit(EventArgs e)
 		{
@@ -69,7 +69,7 @@ namespace N2.Edit
 			Commands = Engine.Resolve<CommandDispatcher>();
 			EditManager = Engine.EditManager;
 			ManagementPaths = Engine.ManagementPaths;
-			Repository = Engine.Resolve<ContentVersionRepository>();
+			Repository = Engine.Resolve<IContentVersionRepository>();
 		}
 
 		protected override void OnInit(EventArgs e)

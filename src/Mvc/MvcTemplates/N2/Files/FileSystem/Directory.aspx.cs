@@ -168,7 +168,7 @@ namespace N2.Edit.FileSystem
 				//Get a specific version of the item if version index and key are provided.
 				if (!string.IsNullOrWhiteSpace(versionIndex) && !string.IsNullOrWhiteSpace(versionKey))
 				{
-					var cvr = Engine.Resolve<ContentVersionRepository>();
+					var cvr = Engine.Resolve<IContentVersionRepository>();
 					item = cvr.ParseVersion(versionIndex, versionKey, item);
 				}
 
@@ -224,7 +224,7 @@ namespace N2.Edit.FileSystem
 			//Get a specific version of the item if version index and key are provided.
 			if (!string.IsNullOrWhiteSpace(versionIndex) && !string.IsNullOrWhiteSpace(versionKey))
 			{
-				var cvr = Engine.Resolve<ContentVersionRepository>();
+				var cvr = Engine.Resolve<IContentVersionRepository>();
 				item = cvr.ParseVersion(versionIndex, versionKey, item);
 			}
 
@@ -253,7 +253,7 @@ namespace N2.Edit.FileSystem
 
 				if (item.VersionOf.HasValue)
 				{
-					var cvr = Engine.Resolve<ContentVersionRepository>();
+					var cvr = Engine.Resolve<IContentVersionRepository>();
 					cvr.Save(item);
 				}
 				else

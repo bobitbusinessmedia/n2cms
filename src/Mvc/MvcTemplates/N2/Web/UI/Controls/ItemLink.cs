@@ -33,7 +33,7 @@ namespace N2.Edit.Web.UI.Controls
 				var version = DataSource as ContentVersion;
 				if (version != null)
 				{
-					item = version.GetVersionInfo(N2.Context.Current.Resolve<ContentVersionRepository>()).Content;
+					item = version.GetVersionInfo(N2.Context.Current.Resolve<IContentVersionRepository>()).Content;
 				}
 
 				return;

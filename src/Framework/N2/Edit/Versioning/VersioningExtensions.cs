@@ -187,13 +187,13 @@ namespace N2.Edit.Versioning
             return previewedItem;
         }
 
-        public static ContentItem GetVersionItem(this ContentVersionRepository repository, ContentItem item, int versionIndex)
+        public static ContentItem GetVersionItem(this IContentVersionRepository repository, ContentItem item, int versionIndex)
 		{
 			var version = repository.GetVersion(item, versionIndex);
 			return repository.DeserializeVersion(version);
 		}
 
-	    public static VersionInfo GetVersionInfo(this ContentVersion version, ContentVersionRepository repository)
+	    public static VersionInfo GetVersionInfo(this ContentVersion version, IContentVersionRepository repository)
 	    {
 		    try
 		    {

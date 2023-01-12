@@ -15,9 +15,9 @@ namespace N2.Web.Parts
         readonly IPersister persister;
         readonly Integrity.IIntegrityManager integrity;
         readonly IVersionManager versions;
-        readonly ContentVersionRepository versionRepository;
+        readonly IContentVersionRepository versionRepository;
 
-        public ItemCopyer(IPersister persister, Navigator navigator, Integrity.IIntegrityManager integrity, IVersionManager versions, ContentVersionRepository versionRepository)
+        public ItemCopyer(IPersister persister, Navigator navigator, Integrity.IIntegrityManager integrity, IVersionManager versions, IContentVersionRepository versionRepository)
         {
             this.persister = persister;
             this.navigator = navigator;

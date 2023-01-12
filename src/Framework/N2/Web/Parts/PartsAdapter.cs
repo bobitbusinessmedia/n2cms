@@ -35,7 +35,7 @@ namespace N2.Web.Parts
         IDefinitionManager definitions;
         IEnumerable<ITemplateProvider> templates;
         ISecurityManager security;
-        ContentVersionRepository versionRepository;
+        IContentVersionRepository versionRepository;
         Rendering.ContentRendererSelector rendererSelector;
         private ITemplateAggregator templateAggregator;
 
@@ -47,9 +47,9 @@ namespace N2.Web.Parts
             set { rendererSelector = value; }
         }
 
-        public ContentVersionRepository VersionRepository
+        public IContentVersionRepository VersionRepository
         {
-            get { return versionRepository ?? Engine.Resolve<ContentVersionRepository>(); }
+            get { return versionRepository ?? Engine.Resolve<IContentVersionRepository>(); }
             set { versionRepository = value; }
         }
 

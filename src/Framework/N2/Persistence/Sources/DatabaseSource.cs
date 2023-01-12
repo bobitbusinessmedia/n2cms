@@ -118,7 +118,7 @@ namespace N2.Persistence.Sources
 
         public override void Delete(ContentItem item)
         {
-            var versionRepository = Engine.Resolve<ContentVersionRepository>();
+            var versionRepository = Engine.Resolve<IContentVersionRepository>();
             using (var tx = repository.BeginTransaction())
             {
                 try
@@ -138,7 +138,7 @@ namespace N2.Persistence.Sources
             }
         }
 
-        private void DeleteRecursive(ContentItem itemToDelete, ContentVersionRepository versionRepository)
+        private void DeleteRecursive(ContentItem itemToDelete, IContentVersionRepository versionRepository)
         {
             using (logger.Indent())
             {

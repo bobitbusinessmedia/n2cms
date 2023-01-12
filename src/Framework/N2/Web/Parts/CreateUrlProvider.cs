@@ -18,9 +18,9 @@ namespace N2.Web.Parts
         readonly ITemplateAggregator templates;
         readonly Navigator navigator;
         private IVersionManager versions;
-        private ContentVersionRepository versionRepository;
+        private IContentVersionRepository versionRepository;
 
-        public CreateUrlProvider(IPersister persister, IEditUrlManager editUrlManager, IDefinitionManager definitions, ITemplateAggregator templates, ContentActivator activator, Navigator navigator, IVersionManager versions, ContentVersionRepository versionRepository)
+        public CreateUrlProvider(IPersister persister, IEditUrlManager editUrlManager, IDefinitionManager definitions, ITemplateAggregator templates, ContentActivator activator, Navigator navigator, IVersionManager versions, IContentVersionRepository versionRepository)
         {
             this.persister = persister;
             this.managementPaths = editUrlManager;
