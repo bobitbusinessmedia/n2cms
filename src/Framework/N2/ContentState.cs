@@ -19,6 +19,9 @@ namespace N2
 		/// <summary>The item is waiting for the opportune moment to be published.</summary>
 		Waiting = 4,
 
+		/// <summary>The item is disapproved.</summary>
+		Disapproved = 8,
+
 		/// <summary>The item is published.</summary>
 		Published = 16,
 
