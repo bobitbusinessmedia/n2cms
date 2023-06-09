@@ -18,14 +18,12 @@
  */
 #endregion
 
+using N2.Definitions;
+using N2.Edit;
+using N2.Edit.Trash;
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using N2.Persistence.Search;
-using System.IO;
-using N2.Web.UI.WebControls;
-using N2.Definitions;
-using N2.Edit;
 
 namespace N2.Details
 {
@@ -120,11 +118,19 @@ namespace N2.Details
                 {
                     url = Engine.RequestContext.Url.HostUrl.Append(url.TrimStart('/'));
                 }
-                var existing = Engine.UrlParser.FindPath(url);
-                if (!existing.IsEmpty() && existing.CurrentItem != selItem && (selItem.VersionOf.ID) != existing.ID)
-                {
-                    args.IsValid = false;
-                    cv.ErrorMessage = string.Format(GetLocalizedText("UniqueUrlMessage") ?? UniqueUrlMessage, GetLocalizedText("Title") ?? Title, existing.CurrentItem.Title, existing.CurrentItem.ID);
+                var existing = Engine.UrlParser.FindPath(url); 
+                if (!existing.IsEmpty()) {
+                    //DirectUrl must only be unique under same startpage.
+                    //Ignore same directurl item found from trash or same exact item.
+                    var existingCurrentItem = existing.CurrentItem;
+                    var existingStartPage = Find.ClosestOf<IStartPage>(existingCurrentItem);
+                    var existingMainId = existingCurrentItem.VersionOf.HasValue ? existingCurrentItem.VersionOf.Value.ID : existingCurrentItem.ID;
+                    var selMainId = selItem.VersionOf.HasValue ? selItem.VersionOf.Value.ID : selItem.ID;
+                    if (existingCurrentItem.Parent != null && existingCurrentItem.Parent is ITrashCan == false && (existingStartPage != null && existingStartPage.ID == site.StartPageID) && existingMainId != selMainId)
+                    { 
+                        args.IsValid = false;
+                        cv.ErrorMessage = string.Format(GetLocalizedText("UniqueUrlMessage") ?? UniqueUrlMessage, GetLocalizedText("Title") ?? Title, existing.CurrentItem.Title, existing.CurrentItem.ID);
+                    }
                 }
             };
             container.Controls.Add(cv);
