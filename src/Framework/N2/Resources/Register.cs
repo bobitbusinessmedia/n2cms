@@ -59,8 +59,8 @@ namespace N2.Resources
 		public const string AngularJsVersion = "1.5.8";
 		public const string CkEditorVersion = "4.5.8";
 		public const string DefaultBootstrapVersion = "2.3.2";
-		public const string ScriptVersion = "202203140939";
-		public const string CssVersion = "202203290927";
+		public const string ScriptVersion = "20241709";
+		public const string CssVersion = "20241709";
 
 		public const string DefaultFlagsCssPath = "{ManagementUrl}/Resources/icons/flags.css?v="+CssVersion;
 		public const string DefaultJQueryJsPath = "//code.jquery.com/jquery-" + JQueryVersion + ".min.js";
