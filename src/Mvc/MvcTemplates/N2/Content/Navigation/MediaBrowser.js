@@ -220,29 +220,42 @@
             }
         },
         selectFileToParent: function (e) {
-            var cke = (fileBrowser.list).getAttribute("data-ckeditor"),
-                ckeFn = (fileBrowser.list).getAttribute("data-ckeditorfuncnum"),
-                mediaCtrl = window.tbid;
+            //ckeEditor5
+            if (dp && dp.url && window.opener) {
 
-            //ckEditor
-            if (cke !== "" && ckeFn !== "" && dp !== null
-                && window.opener && window.opener.CKEDITOR && window.opener.CKEDITOR.tools && window.opener.CKEDITOR.tools.callFunction) {
-                window.opener.CKEDITOR.tools.callFunction(ckeFn, dp.url, function () {
-                    // Get the reference to a dialog window.
-                    var element,
-                        dialog = this.getDialog();
-                    // Check if this is the Image dialog window.
-                    if (dialog.getName() == 'image') {
-                        // Get the reference to a text field that holds the "alt" attribute.
-                        element = dialog.getContentElement('info', 'txtAlt');
-                        // Assign the new value.
-                        if (element)
-                            element.setValue(dp.altText);
-                    }
-                });
-            }//ckEditor
+                const message = {
+                    type: 'selectedImage',
+                    imageUrl: dp.url
+                };
+
+                // Send the image URL to the opener window
+                const targetOrigin = window.location.origin;
+                window.opener.postMessage(message, targetOrigin);
+            }
+
+            //ckEditor4
+            // var cke = (fileBrowser.list).getAttribute("data-ckeditor"),
+            // ckeFn = (fileBrowser.list).getAttribute("data-ckeditorfuncnum");
+            // if (cke !== "" && ckeFn !== "" && dp !== null
+            //     && window.opener && window.opener.CKEDITOR && window.opener.CKEDITOR.tools && window.opener.CKEDITOR.tools.callFunction) {
+            //     window.opener.CKEDITOR.tools.callFunction(ckeFn, dp.url, function () {
+            //         // Get the reference to a dialog window.
+            //         var element,
+            //             dialog = this.getDialog();
+            //         // Check if this is the Image dialog window.
+            //         if (dialog.getName() == 'image') {
+            //             // Get the reference to a text field that holds the "alt" attribute.
+            //             element = dialog.getContentElement('info', 'txtAlt');
+            //             // Assign the new value.
+            //             if (element)
+            //                 element.setValue(dp.altText);
+            //         }
+            //     });
+            // }//ckEditor
+
 
             //mediaControl
+            var mediaCtrl = window.tbid;
             if (mediaCtrl !== "" && dp !== null && window.opener && window.opener.n2MediaSelection && window.opener.n2MediaSelection.setMediaSelectorValue) {
                 window.opener.n2MediaSelection.setMediaSelectorValue(mediaCtrl, dp.url);
             }
